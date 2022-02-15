@@ -34,7 +34,7 @@ public class FrontControllerServletV3 extends HttpServlet {
         // /front-controller/v3/members key를 넣으면 MemberListControllerV1 이 value로 호출이 된다
         String requestURI = request.getRequestURI();
 
-        //ControllerV3 controller = new MemberListControllerV1(); 과 같음
+        //ControllerV3 controller = new MemberListControllerV3(); 과 같음
         ControllerV3 controller = controllerMap.get(requestURI);
         if (controller == null) { // 없으면 404 페이지
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
@@ -56,6 +56,7 @@ public class FrontControllerServletV3 extends HttpServlet {
     }
 
     // 단순로직이 아니라 로직이 큰 경우는 메소드로 뽑는다.
+    // HttpServletRequest에서 파라미터 정보를 꺼내서 Map으로 변환한다. 그리고 해당 Map( paramMap )을 컨트롤러에 전달하면서 호출한다.
     private Map<String, String> createParamMap(HttpServletRequest request) {
         //paramMap 사용
         Map<String, String> paramMap = new HashMap<>(); //paramMap 을 만든다
